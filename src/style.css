@@ -1136,6 +1136,64 @@ button {
   color: var(--accent-1);
 }
 
+/* Timeline skill tags */
+.timeline__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.timeline__skill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition);
+  cursor: default;
+}
+
+.timeline__skill:hover {
+  color: var(--text-primary);
+  border-color: rgba(102, 126, 234, 0.4);
+  background: rgba(102, 126, 234, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.timeline__skill--highlight {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+  border-color: rgba(102, 126, 234, 0.4);
+  color: var(--accent-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline__skill--highlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.timeline__skill--highlight:hover {
+  color: #fff;
+  background: var(--gradient);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.35), 0 0 12px rgba(118, 75, 162, 0.2);
+  transform: translateY(-3px) scale(1.05);
+}
+
 /* ---------- Projects ---------- */
 .projects-grid {
   display: grid;
