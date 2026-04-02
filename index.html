@@ -861,6 +861,37 @@
     </div>
   </footer>
 
+  <!-- Visitor Dashboard Widget -->
+  <div class="visitor-dash" id="visitorDash">
+    <button class="visitor-dash__toggle" id="visitorDashToggle" aria-label="Toggle visitor stats">
+      <i class="fa-solid fa-chart-line"></i>
+      <span class="visitor-dash__live-dot"></span>
+    </button>
+    <div class="visitor-dash__panel" id="visitorDashPanel">
+      <div class="visitor-dash__header">
+        <span class="visitor-dash__title"><i class="fa-solid fa-signal"></i> Live Stats</span>
+        <span class="visitor-dash__live"><span class="visitor-dash__live-pulse"></span> Live</span>
+      </div>
+      <div class="visitor-dash__grid visitor-dash__grid--3">
+        <div class="visitor-dash__stat">
+          <div class="visitor-dash__stat-icon"><i class="fa-solid fa-eye"></i></div>
+          <div class="visitor-dash__stat-value" id="dashTotalVisits">—</div>
+          <div class="visitor-dash__stat-label">Total Visits</div>
+        </div>
+        <div class="visitor-dash__stat">
+          <div class="visitor-dash__stat-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="visitor-dash__stat-value" id="dashUniqueUsers">—</div>
+          <div class="visitor-dash__stat-label">Unique Visitors</div>
+        </div>
+        <div class="visitor-dash__stat">
+          <div class="visitor-dash__stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div class="visitor-dash__stat-value" id="dashAvgTime">—</div>
+          <div class="visitor-dash__stat-label">Avg. Time Spent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scroll to Top Button -->
   <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
     <i class="fa-solid fa-arrow-up"></i>

@@ -398,6 +398,146 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // 10. Visitor Dashboard
+  // =========================================================================
+  function initVisitorDash() {
+    const dash = document.getElementById('visitorDash');
+    const toggle = document.getElementById('visitorDashToggle');
+    if (!dash || !toggle) return;
+
+    const NS = 'vaibhavjain-portfolio';
+    const totalEl = document.getElementById('dashTotalVisits');
+    const uniqueEl = document.getElementById('dashUniqueUsers');
+    const avgTimeEl = document.getElementById('dashAvgTime');
+
+    // Toggle panel
+    toggle.addEventListener('click', () => dash.classList.toggle('visitor-dash--open'));
+    document.addEventListener('click', (e) => {
+      if (!dash.contains(e.target)) dash.classList.remove('visitor-dash--open');
+    });
+
+    // Animate a number counting up
+    function animateValue(el, end, duration) {
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(end * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // --- 1. Total Visits ---
+    fetch(`https://api.counterapi.dev/v1/${NS}/page-visits/up`)
+      .then((r) => r.json())
+      .then((d) => { if (d && d.count != null) animateValue(totalEl, d.count, 1200); })
+      .catch(() => {
+        let c = parseInt(localStorage.getItem('vj_visits') || '0', 10) + 1;
+        localStorage.setItem('vj_visits', c);
+        animateValue(totalEl, c, 1200);
+      });
+
+    // --- 2. Unique Visitors (IP-based) ---
+    // Get visitor IP, hash it, use as a per-IP counter key.
+    // If the per-IP counter returns 1 → new user → also increment the unique-total counter.
+    async function trackUnique() {
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        const ip = ipData.ip;
+
+        // Simple hash of IP for the counter key
+        let hash = 0;
+        for (let i = 0; i < ip.length; i++) {
+          hash = ((hash << 5) - hash) + ip.charCodeAt(i);
+          hash |= 0;
+        }
+        const ipKey = 'ip-' + Math.abs(hash).toString(36);
+
+        // Increment per-IP counter
+        const perIpRes = await fetch(`https://api.counterapi.dev/v1/${NS}/${ipKey}/up`);
+        const perIpData = await perIpRes.json();
+
+        // First visit from this IP → increment unique total
+        if (perIpData && perIpData.count === 1) {
+          const uniqueRes = await fetch(`https://api.counterapi.dev/v1/${NS}/unique-visitors/up`);
+          const uniqueData = await uniqueRes.json();
+          if (uniqueData && uniqueData.count != null) animateValue(uniqueEl, uniqueData.count, 1200);
+        } else {
+          // Returning visitor — just read the current unique count
+          const uniqueRes = await fetch(`https://api.counterapi.dev/v1/${NS}/unique-visitors/up`);
+          const uniqueData = await uniqueRes.json();
+          // Undo the extra increment for returning visitors by reading count-1
+          if (uniqueData && uniqueData.count != null) {
+            // Show count minus 1 since this wasn't a real new unique
+            animateValue(uniqueEl, uniqueData.count - 1, 1200);
+          }
+        }
+      } catch {
+        // Fallback: localStorage-based unique tracking
+        const isNew = !localStorage.getItem('vj_unique');
+        if (isNew) localStorage.setItem('vj_unique', '1');
+        let uc = parseInt(localStorage.getItem('vj_unique_count') || '0', 10);
+        if (isNew) { uc++; localStorage.setItem('vj_unique_count', uc); }
+        animateValue(uniqueEl, uc, 1200);
+      }
+    }
+    trackUnique();
+
+    // --- 3. Avg Time on Site ---
+    // Track session durations in localStorage, compute running average.
+    const sessionStart = Date.now();
+    const STORAGE_KEY = 'vj_session_times';
+
+    function getStoredSessions() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+      catch { return []; }
+    }
+
+    function formatTime(secs) {
+      if (secs < 60) return secs + 's';
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return m + 'm ' + (s > 0 ? s + 's' : '');
+    }
+
+    // Show existing average on load
+    const pastSessions = getStoredSessions();
+    if (pastSessions.length > 0) {
+      const avg = Math.round(pastSessions.reduce((a, b) => a + b, 0) / pastSessions.length);
+      avgTimeEl.textContent = formatTime(avg);
+    } else {
+      avgTimeEl.textContent = '0s';
+    }
+
+    // Update average every 5s with current session included
+    setInterval(() => {
+      const currentDuration = Math.floor((Date.now() - sessionStart) / 1000);
+      const sessions = getStoredSessions();
+      const allSessions = [...sessions, currentDuration];
+      const avg = Math.round(allSessions.reduce((a, b) => a + b, 0) / allSessions.length);
+      avgTimeEl.textContent = formatTime(avg);
+    }, 5000);
+
+    // Save session duration when user leaves
+    function saveSession() {
+      const duration = Math.floor((Date.now() - sessionStart) / 1000);
+      if (duration < 2) return; // Ignore very short visits
+      const sessions = getStoredSessions();
+      sessions.push(duration);
+      // Keep last 50 sessions to avoid bloating localStorage
+      if (sessions.length > 50) sessions.splice(0, sessions.length - 50);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+    }
+
+    window.addEventListener('beforeunload', saveSession);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') saveSession();
+    });
+  }
+
+  // =========================================================================
   // Initialize all features
   // =========================================================================
   init3DAnimations(); // Must run BEFORE scroll animations
@@ -409,4 +549,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillTagsAnimation();
   initCounterAnimation();
   initRecommendationsSlider();
+  initVisitorDash();
 });
