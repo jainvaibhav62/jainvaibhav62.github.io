@@ -398,7 +398,117 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 10. Visitor Dashboard
+  // 10. Quote Avatar — floating widget, loads from src/quotes.json
+  // =========================================================================
+  function initQuotes() {
+    const avatar = document.getElementById('quoteAvatar');
+    const btn = document.getElementById('quoteAvatarBtn');
+    const bubble = document.getElementById('quoteAvatarBubble');
+    const closeBtn = document.getElementById('quoteAvatarClose');
+    const nextBtn = document.getElementById('quoteAvatarNext');
+    const textEl = document.getElementById('quoteAvatarText');
+    const authorEl = document.getElementById('quoteAvatarAuthor');
+    if (!avatar || !btn || !textEl) return;
+
+    // All quotes inlined — edit src/quotes.json and copy here to update
+    let quotes = [
+      { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
+      { text: "Data is the new oil. It's valuable, but if unrefined it cannot really be used.", author: 'Clive Humby' },
+      { text: 'In God we trust. All others must bring data.', author: 'W. Edwards Deming' },
+      { text: 'The goal is to turn data into information, and information into insight.', author: 'Carly Fiorina' },
+      { text: 'Without big data analytics, companies are blind and deaf, wandering out onto the web like deer on a freeway.', author: 'Geoffrey Moore' },
+      { text: 'Artificial intelligence is the new electricity.', author: 'Andrew Ng' },
+      { text: 'The best way to predict the future is to invent it.', author: 'Alan Kay' },
+      { text: "Code is like humor. When you have to explain it, it's bad.", author: 'Cory House' },
+      { text: 'Stay hungry, stay foolish.', author: 'Steve Jobs' },
+      { text: 'Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.', author: 'Mark Zuckerberg' },
+      { text: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
+      { text: 'The people who are crazy enough to think they can change the world are the ones who do.', author: 'Steve Jobs' },
+      { text: 'The magic is in the works that you are avoiding.', author: 'Unknown' },
+      { text: 'The best way to get a project done faster is to start sooner.', author: 'Jim Highsmith' },
+      { text: 'A snake bites you in private, where no one sees, then remove the venom in public to look like the hero.', author: 'Unknown' },
+      { text: 'Winning Secret 1: The only way to achieve something is to deserve it. Every other win is either temporary or an act of fraud"', author: 'Unknown' },
+      { text: 'Winning Secret 2: Sometimes, for reason outside your control, you will not win even when you deserve it. But if, without getting bitter or loss of enthusiasm, you can attempt again each time you fail, winning is inevitable!"', author: 'Unknown' },
+      {text: 'Winning Secret 3: With Humility, accept that we are not suited to win everything we want to. But life is long and there will be many more games we will be better fit to win. Don\'t miss those staying busy with the wrong games. Ans FINALLY remember, The Fight of Winning and losing is just to make our short time in this world a little intersting. Beyond the basic needs, LIFE, as is, is complete at every point in time!', author: 'Unknown' },
+      {text: 'The world is not a zero-sum game. There is no such thing as a winner and a loser. There are only winners and people who haven\'t won yet.', author: 'Unknown' },
+    ];
+    let shuffled = [];
+    let shuffleIndex = 0;
+    let transitioning = false;
+
+    // Fisher-Yates shuffle — every quote shown before any repeats
+    function buildShuffledOrder() {
+      shuffled = quotes.map((_, i) => i);
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      shuffleIndex = 0;
+    }
+
+    function getNextQuote() {
+      if (shuffled.length === 0 || shuffleIndex >= shuffled.length) {
+        buildShuffledOrder();
+      }
+      return quotes[shuffled[shuffleIndex++]];
+    }
+
+    buildShuffledOrder();
+
+    function showNextQuote() {
+      if (transitioning) return;
+      const q = getNextQuote();
+
+      if (textEl.textContent) {
+        transitioning = true;
+        textEl.classList.add('quote-avatar--fade');
+        authorEl.classList.add('quote-avatar--fade');
+        setTimeout(() => {
+          textEl.textContent = q.text;
+          authorEl.textContent = q.author;
+          textEl.classList.remove('quote-avatar--fade');
+          authorEl.classList.remove('quote-avatar--fade');
+          transitioning = false;
+        }, 280);
+      } else {
+        textEl.textContent = q.text;
+        authorEl.textContent = q.author;
+      }
+    }
+
+    // Open/close bubble on avatar click
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (avatar.classList.contains('quote-avatar--open')) {
+        avatar.classList.remove('quote-avatar--open');
+      } else {
+        showNextQuote();
+        avatar.classList.add('quote-avatar--open');
+      }
+    });
+
+    // Close button
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      avatar.classList.remove('quote-avatar--open');
+    });
+
+    // "Tell me another one, Bruno!" button
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showNextQuote();
+    });
+
+    // Prevent any bubble click from reaching the document handler
+    bubble.addEventListener('click', (e) => e.stopPropagation());
+
+    // Close on outside click
+    document.addEventListener('click', () => avatar.classList.remove('quote-avatar--open'));
+  }
+
+  // =========================================================================
+  // 11. Visitor Dashboard
   // =========================================================================
   function initVisitorDash() {
     const dash = document.getElementById('visitorDash');
@@ -549,5 +659,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillTagsAnimation();
   initCounterAnimation();
   initRecommendationsSlider();
+  initQuotes();
   initVisitorDash();
 });
