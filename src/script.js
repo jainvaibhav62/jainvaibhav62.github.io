@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { text: 'Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.', author: 'Mark Zuckerberg' },
       { text: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
       { text: 'The people who are crazy enough to think they can change the world are the ones who do.', author: 'Steve Jobs' },
-      { text: 'The magic is in the works that you are avoiding.', author: 'Unknown' },
+      { text: 'The magic is in the work that you are avoiding.', author: 'Unknown' },
       { text: 'The best way to get a project done faster is to start sooner.', author: 'Jim Highsmith' },
       { text: 'A snake bites you in private, where no one sees, then remove the venom in public to look like the hero.', author: 'Unknown' },
       { text: 'Winning Secret 1: The only way to achieve something is to deserve it. Every other win is either temporary or an act of fraud"', author: 'Unknown' },
