@@ -417,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
       { text: 'In God we trust. All others must bring data.', author: 'W. Edwards Deming' },
       { text: 'The goal is to turn data into information, and information into insight.', author: 'Carly Fiorina' },
       { text: 'Without big data analytics, companies are blind and deaf, wandering out onto the web like deer on a freeway.', author: 'Geoffrey Moore' },
-      { text: 'Artificial intelligence is the new electricity.', author: 'Andrew Ng' },
       { text: 'The best way to predict the future is to invent it.', author: 'Alan Kay' },
       { text: "Code is like humor. When you have to explain it, it's bad.", author: 'Cory House' },
       { text: 'Stay hungry, stay foolish.', author: 'Steve Jobs' },
