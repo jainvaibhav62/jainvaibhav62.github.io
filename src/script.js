@@ -430,7 +430,8 @@ document.addEventListener('DOMContentLoaded', () => {
       { text: 'Winning Secret 2: Sometimes, for reason outside your control, you will not win even when you deserve it. But if, without getting bitter or loss of enthusiasm, you can attempt again each time you fail, winning is inevitable!"', author: 'Unknown' },
       {text: 'Winning Secret 3: With Humility, accept that we are not suited to win everything we want to. But life is long and there will be many more games we will be better fit to win. Don\'t miss those staying busy with the wrong games. Ans FINALLY remember, The Fight of Winning and losing is just to make our short time in this world a little intersting. Beyond the basic needs, LIFE, as is, is complete at every point in time!', author: 'Unknown' },
       {text: 'The world is not a zero-sum game. There is no such thing as a winner and a loser. There are only winners and people who haven\'t won yet.', author: 'Unknown' },
-      {text:'You can\'t fuck up anything that is meant for you, so stop being scared of what will happen. Trust your intution and let your heart and soul guide you on this journey. I promise you, you cannot mess anything up that is meant for you.', author: 'Unknown' }
+      {text:'You can\'t fuck up anything that is meant for you, so stop being scared of what will happen. Trust your intution and let your heart and soul guide you on this journey. I promise you, you cannot mess anything up that is meant for you.', author: 'Unknown' },
+      {text: 'OBSERVE \n But Don\'t absorb \n LOVE But Don\'t Depend, WANT \n but don\'t need \n FEEL \n but don\'t dwell \n GIVE \n but don\'t expect \n SPEAK \n but don\'t hurt \n and suddenly lot of things made sense', author: 'Unknown'}
     ];
     let shuffled = [];
     let shuffleIndex = 0;
