@@ -47,5 +47,8 @@ Temporary Items
 .apdisk
 /.claude
 CLAUDE.local.md
+CLAUDE.md
+.env.example
 /memory
 SETUP_SUMMARY.md
+
