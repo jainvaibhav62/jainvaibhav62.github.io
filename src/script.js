@@ -432,7 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
       {text: 'The world is not a zero-sum game. There is no such thing as a winner and a loser. There are only winners and people who haven\'t won yet.', author: 'Unknown' },
       {text:'You can\'t fuck up anything that is meant for you, so stop being scared of what will happen. Trust your intution and let your heart and soul guide you on this journey. I promise you, you cannot mess anything up that is meant for you.', author: 'Unknown' },
       {text: 'OBSERVE \n But Don\'t absorb \n LOVE \n But Don\'t Depend \n WANT \n but don\'t need \n FEEL \n but don\'t dwell \n GIVE \n but don\'t expect \n SPEAK \n but don\'t hurt \n and suddenly lot of things made sense.', author: 'Unknown'},
-      {text: 'Always assume things will work out, then do the work to make it true. \n I\'ve found the combination creates a quiet confidence that allows you to tolerate uncertainity bettter than anything else.', author: 'Unknown'}
+      {text: 'Always assume things will work out, then do the work to make it true. \n I\'ve found the combination creates a quiet confidence that allows you to tolerate uncertainity bettter than anything else.', author: 'Unknown'},
+      {text: 'A Knight in clean ARMOR has never seen BATTLE.', author: 'Peter Drucker'},
     ];
     let shuffled = [];
     let shuffleIndex = 0;
