@@ -651,6 +651,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // 12. Featured Projects Tabs
+  // =========================================================================
+  function initFeaturedTabs() {
+    const tabs = document.querySelectorAll('.featured__tab');
+    const slides = document.querySelectorAll('.featured__slide');
+    if (tabs.length === 0 || slides.length === 0) return;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-slide');
+
+        tabs.forEach((t) => t.classList.remove('featured__tab--active'));
+        tab.classList.add('featured__tab--active');
+
+        slides.forEach((s) => {
+          s.classList.remove('featured__slide--active');
+          if (s.getAttribute('data-slide-index') === target) {
+            s.classList.add('featured__slide--active');
+          }
+        });
+      });
+    });
+  }
+
+  // =========================================================================
   // Initialize all features
   // =========================================================================
   init3DAnimations(); // Must run BEFORE scroll animations
@@ -662,6 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillTagsAnimation();
   initCounterAnimation();
   initRecommendationsSlider();
+  initFeaturedTabs();
   initQuotes();
   initVisitorDash();
 });

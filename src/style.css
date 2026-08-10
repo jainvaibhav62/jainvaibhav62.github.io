@@ -694,6 +694,56 @@ button {
 }
 
 /* ---------- Featured Project ---------- */
+/* ---------- Featured Tabs & Slides ---------- */
+.featured__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.featured__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.featured__tab:hover {
+  border-color: var(--accent-1);
+  color: var(--text-primary);
+  background: rgba(102, 126, 234, 0.06);
+}
+
+.featured__tab--active {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+  border-color: var(--accent-1);
+  color: var(--text-primary);
+}
+
+.featured__slide {
+  display: none;
+}
+
+.featured__slide--active {
+  display: block;
+  animation: featured-slide-in 0.4s ease;
+}
+
+@keyframes featured-slide-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .featured__wrapper {
   position: relative;
   display: grid;
@@ -877,6 +927,138 @@ button {
 .featured__terminal-highlight {
   color: #ffa657;
   font-weight: 600;
+}
+
+/* App Mockup (Smash Club) */
+.featured__app-mockup {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #0d1117;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(102, 126, 234, 0.1);
+}
+
+.featured__app-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: #161b22;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.featured__app-bar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #28c840;
+}
+
+.featured__app-bar-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.02em;
+}
+
+.featured__app-bar-icon {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+}
+
+.featured__app-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featured__app-card {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+}
+
+.featured__app-card-header {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffa657;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.featured__app-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.featured__app-label {
+  font-size: 0.8rem;
+  color: #6e7681;
+}
+
+.featured__app-value {
+  font-size: 0.8rem;
+  color: #c9d1d9;
+  font-weight: 500;
+}
+
+.featured__app-value--accent {
+  color: #58a6ff;
+}
+
+.featured__app-value--live {
+  color: #28c840;
+  font-weight: 700;
+}
+
+.featured__app-match {
+  border-radius: 10px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  background: rgba(102, 126, 234, 0.06);
+  padding: 16px;
+  text-align: center;
+}
+
+.featured__app-match-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6e7681;
+  margin-bottom: 10px;
+}
+
+.featured__app-match-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.featured__app-player {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c9d1d9;
+}
+
+.featured__app-vs {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffa657;
+  text-transform: uppercase;
+}
+
+.featured__app-match-court {
+  font-size: 0.75rem;
+  color: #6e7681;
+  margin-top: 10px;
 }
 
 /* ---------- Skills ---------- */
@@ -2396,6 +2578,15 @@ button {
 
   .section__header {
     margin-bottom: 40px;
+  }
+
+  .featured__tabs {
+    gap: 8px;
+  }
+
+  .featured__tab {
+    padding: 8px 16px;
+    font-size: 0.8rem;
   }
 
   .featured__wrapper {
