@@ -336,31 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach((counter) => observer.observe(counter));
   }
 
-  // =========================================================================
-  // 9. Recommendations infinite scroll — duplicate cards for seamless loop
-  // =========================================================================
-  function initRecommendationsSlider() {
-    const slider = document.querySelector('.recommendations-slider');
-    if (!slider) return;
-
-    const buttons = document.querySelectorAll('.recommendations-nav__btn');
-    if (buttons.length === 0) return;
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const card = slider.querySelector('.recommendation-card');
-        if (!card) return;
-
-        // Scroll by one card width + gap
-        const style = getComputedStyle(slider);
-        const gap = parseInt(style.gap, 10) || 24;
-        const scrollAmount = card.offsetWidth + gap;
-        const dir = parseInt(btn.getAttribute('data-dir'), 10);
-
-        slider.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
-      });
-    });
-  }
 
   // =========================================================================
   // 10. Apply 3D animation classes dynamically
@@ -686,7 +661,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectTilt();
   initSkillTagsAnimation();
   initCounterAnimation();
-  initRecommendationsSlider();
   initFeaturedTabs();
   initQuotes();
   initVisitorDash();
